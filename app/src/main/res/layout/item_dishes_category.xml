@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="54dp">
+
+    <TextView
+        android:id="@+id/dishes_category_name"
+        android:layout_width="36sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="粤港风味"
+        android:textSize="16sp" />
+
+</FrameLayout>
