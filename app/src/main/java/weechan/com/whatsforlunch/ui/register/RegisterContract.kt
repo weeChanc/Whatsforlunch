@@ -1,8 +1,17 @@
 package weechan.com.whatsforlunch.ui.register
 
+import com.mobile.utils.showToast
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.Multipart
+import rx.Observable
 import weechan.com.common.base.BasePresenter
 import weechan.com.common.base.BaseView
+import weechan.com.whatsforlunch.data.BaseResponse
 import weechan.com.whatsforlunch.net.RetrofitClient
+import weechan.com.whatsforlunch.utils.Oks
+import weechan.com.whatsforlunch.utils.fetch
+import java.io.File
 
 /**
  *
@@ -15,6 +24,8 @@ import weechan.com.whatsforlunch.net.RetrofitClient
 interface RegisterContract {
     interface View : BaseView<Presenter> {
 
+        fun showUploadDialog()
+        fun closeUploadDialog()
 
     }
 
@@ -23,6 +34,14 @@ interface RegisterContract {
 
         fun getCityList(): List<String> {
             return listOf("北京","上海","广州","深圳")
+        }
+
+        fun register(yyzz: File, sfz: File, params: Map<String,String>){
+            view?.showUploadDialog()
+            mApi.register(Oks.formFilePart("businessLincence",yyzz),
+                    Oks.formFilePart("idcard",sfz),params).fetch {
+                view?.closeUploadDialog()
+            }
         }
     }
 }

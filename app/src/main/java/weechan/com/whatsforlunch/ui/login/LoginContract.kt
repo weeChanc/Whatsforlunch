@@ -27,7 +27,7 @@ interface LoginContract {
 
         fun login(account: String, password: String) {
             view?.startLogin()
-            mApi.login(Maps.buildMap {
+            mApi.login(Maps.buildMap<String> {
                 "account" - account
                 "password" - password })
                     .doOnError {}

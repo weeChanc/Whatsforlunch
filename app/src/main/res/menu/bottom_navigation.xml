@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/home" android:title="首页" android:icon="@drawable/ic_menu_camera"/>
-    <item android:id="@+id/orders" android:title="订单" android:icon="@drawable/ic_menu_gallery"/>
-    <item android:id="@+id/setting" android:title="设置" android:icon="@drawable/ic_menu_send"/>
+    <item android:id="@+id/home" android:title="订单处理" android:icon="@drawable/ic_menu_camera"/>
+    <item android:id="@+id/orders" android:title="订单查询" android:icon="@drawable/ic_menu_gallery"/>
+    <item android:id="@+id/setting" android:title="店铺管理" android:icon="@drawable/ic_info_black_24dp"/>
 </menu>

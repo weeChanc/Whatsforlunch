@@ -10,16 +10,16 @@ package weechan.com.common.utils
 
 
 class Maps{
-    class MapBuilder{
-        val map = hashMapOf<Any,Any>()
-        operator fun String.minus(obj: Any){
+    class MapBuilder<V>{
+        val map = hashMapOf<String,V>()
+        operator fun String.minus(obj: V){
             map.put(this,obj)
         }
     }
 
     companion object {
-        fun buildMap( build : MapBuilder.()->Unit): HashMap<Any, Any> {
-            return MapBuilder().apply(build).map
+        fun <V> buildMap( build : MapBuilder<V>.()->Unit): HashMap<String, V> {
+            return MapBuilder<V>().apply(build).map
         }
     }
 }

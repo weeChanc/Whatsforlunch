@@ -8,6 +8,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import weechan.com.whatsforlunch.R
+import weechan.com.whatsforlunch.net.RetrofitClient
+import weechan.com.whatsforlunch.ui.manage.ManageFragment
 
 class MainActivity : AppCompatActivity(),MainContract.View {
     override fun showToast(msg: String) {
@@ -25,22 +27,29 @@ class MainActivity : AppCompatActivity(),MainContract.View {
 
         presenter = MainContract.Presenter(this)
 
-        fragmentManager.beginTransaction().replace(R.id.main_fragment_container,MainFragment()).addToBackStack(null).commit()
+        fragmentManager.beginTransaction()
+                .replace(R.id.main_fragment_container,MainFragment())
+                .addToBackStack(null)
+                .commit()
 
         bottom_nav.setOnNavigationItemSelectedListener {
             item ->
             when(item.itemId){
-                R.id.home -> return@setOnNavigationItemSelectedListener true
-                R.id.orders -> return@setOnNavigationItemSelectedListener true
-                R.id.setting -> return@setOnNavigationItemSelectedListener true
-                else -> {
-                    return@setOnNavigationItemSelectedListener  true
+                R.id.home -> run{
+
+                }
+                R.id.orders -> run{
+
+                }
+                R.id.setting -> run{
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.main_fragment_container, ManageFragment())
+                            .addToBackStack(null)
+                            .commit()
                 }
             }
+            return@setOnNavigationItemSelectedListener true
         }
-//
-//        Gson().fromJson("{ code: 200, message: \"success\", data:[ {categoryName: \"粤港风味\",categoryType: 1}, " +
-//                "{categoryName: \"潮汕风味\",categoryType: 2}, {categoryName: \"c的口味\",categoryType: 3}] }", BaseResponse<DishesCategory>)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -54,8 +63,13 @@ class MainActivity : AppCompatActivity(),MainContract.View {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
+            R.id.action_settings -> run{
+                showToast("swithc")
+                RetrofitClient.switch()
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
+        return true
     }
 }

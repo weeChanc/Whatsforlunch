@@ -9,7 +9,7 @@ import weechan.com.whatsforlunch.R
 import weechan.com.whatsforlunch.ui.main.MainActivity
 import weechan.com.whatsforlunch.ui.register.RegisterActivity
 
-class LoginActivity : AppCompatActivity() , LoginContract.View {
+class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     override lateinit var presenter: LoginContract.Presenter
 
@@ -28,15 +28,15 @@ class LoginActivity : AppCompatActivity() , LoginContract.View {
         setupListener()
     }
 
-    private fun setupListener(){
+    private fun setupListener() {
 
-        register.setOnClickListener{
-            startActivity(Intent(this,RegisterActivity::class.java))
+        register.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
 
         login.setOnClickListener {
-            presenter.login(account.editableText.toString(),password.editableText.toString())
-            startActivity(Intent(this,MainActivity::class.java))
+            presenter.login(account.editableText.toString(), password.editableText.toString())
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
     }

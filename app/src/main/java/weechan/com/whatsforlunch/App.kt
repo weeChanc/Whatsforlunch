@@ -1,6 +1,13 @@
 package weechan.com.whatsforlunch
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkRequest
+import com.mobile.utils.Utils
+import org.jetbrains.anko.toast
+import java.io.File
 
 /**
  *
@@ -19,5 +26,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         app = this
+        Utils.init(this)
+        File(app.externalCacheDir,"ok-cache").mkdir()
     }
 }

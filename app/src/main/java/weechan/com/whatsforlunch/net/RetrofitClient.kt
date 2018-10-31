@@ -1,15 +1,13 @@
 package weechan.com.whatsforlunch.net
 
-import android.util.Log
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Response
+import com.mobile.utils.showToast
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.sql.Time
+import weechan.com.whatsforlunch.App
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 /**
@@ -31,6 +29,8 @@ object RetrofitClient {
             .writeTimeout(timeout, TimeUnit.MILLISECONDS)
             .retryOnConnectionFailure(true)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addNetworkInterceptor(CacheInterceptor())
+            .cache(Cache(File(App.app.externalCacheDir, "ok-cache"), 1024 * 1024 * 30L))
             .build()
 
     private val mockOkClient = OkHttpClient.Builder()
@@ -40,24 +40,24 @@ object RetrofitClient {
             .retryOnConnectionFailure(true)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .addInterceptor(MockInterceptor())
+            .addNetworkInterceptor(CacheInterceptor())
+            .cache(Cache(File(App.app.externalCacheDir, "ok-cache"), 1024 * 1024 * 30L))
             .build()
 
     class MockInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
+
+            showToast(NetStatus.available)
 
             val request = chain.request()
             val builder = request.newBuilder()
             val oldUrl = request.url()
             val requestUrl: String = "/" + oldUrl.pathSegments().joinToString("/")
 
-            val newUrl = oldUrl.newBuilder()
-                    .scheme(oldUrl.scheme())
+
+
+            val newUrl = HttpUrl.Builder().scheme(oldUrl.scheme())
                     .host("result.eolinker.com")
-                    .apply {
-                        for (i in 0 until oldUrl.pathSegments().size) {
-                            removePathSegment(i)
-                        }
-                    }
                     .addPathSegments("xI7UEir31bb0ba7787da922392d7802652dc937dfbff047")
                     .port(oldUrl.port()).addQueryParameter("uri", requestUrl).build()
             return chain.proceed(builder.url(newUrl).build())
@@ -65,14 +65,56 @@ object RetrofitClient {
 
     }
 
+    class CacheInterceptor : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response {
 
-    val retrofit = Retrofit.Builder().baseUrl(baseURL)
+            val resp: Response
+            val req: Request
+            if (NetStatus.available) {
+                req = chain.request().newBuilder()
+                        .cacheControl(CacheControl.Builder().maxAge(2, TimeUnit.DAYS).build())
+                        .build()
+            } else {
+                req = chain.request().newBuilder()
+                        .cacheControl(CacheControl.Builder().onlyIfCached().build())
+                        .build()
+            }
+            resp = chain.proceed(req)
+            return resp.newBuilder()
+                    .removeHeader("Pragma")
+                    .header("Cache-Control", "public,max-age=${60 * 60 * 24 * 2}")
+                    .build()
+        }
+
+    }
+
+
+    var retrofit = Retrofit.Builder().baseUrl(baseURL)
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .client(mockOkClient)
             .build()
 
-    fun <T> create(clazz: Class<T>) = retrofit.create(clazz)
+    var retrofit2 = Retrofit.Builder().baseUrl(baseURL)
+            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okhttpClient)
+            .build()
+
+    fun <T> create(clazz: Class<T>): T {
+        if(yes){
+            return retrofit.create(clazz)
+        }else{
+            return retrofit2.create(clazz)
+        }
+
+    }
+
+    var yes = true
+
+    fun switch(){
+        yes = !yes
+    }
 
 
 }
