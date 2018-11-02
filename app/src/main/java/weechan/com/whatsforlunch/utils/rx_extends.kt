@@ -8,6 +8,8 @@ import rx.Observer
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import weechan.com.whatsforlunch.App
+import weechan.com.whatsforlunch.data.BaseResponse
+import weechan.com.whatsforlunch.net.FetchFailedException
 
 /**
  *
@@ -55,5 +57,32 @@ fun <T> Observable<T>.fetch(block: (param: T?) -> Unit) {
                 }
             }
     )
+}
+
+fun <T> Observable<BaseResponse<T>>.fetchEntity(block: (param: T) -> Unit) {
+    subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+            .flatMap { resp ->
+                when (resp.code) {
+                    200 -> Observable.just(resp.data)
+                    else -> Observable.error(FetchFailedException(resp.code, resp.message))
+                }
+            }
+            .subscribe(
+                    object : Observer<T> {
+                        override fun onNext(t: T) {
+                            block(t)
+                        }
+
+                        override fun onCompleted() {
+                        }
+
+                        override fun onError(e: Throwable?) {
+                            e?.printStackTrace()
+                            Toast.makeText(App.app, e?.message
+                                    ?: "unknown", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+            )
 }
 

@@ -1,12 +1,19 @@
 package weechan.com.whatsforlunch.ui.dishes
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.Image
+import android.util.Base64
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import kotlinx.android.synthetic.main.activity_dishes.view.*
 import weechan.com.whatsforlunch.R
 import weechan.com.whatsforlunch.data.Dishes
+import weechan.com.whatsforlunch.utils.defaultInto
+import java.util.*
 
 /**
  *
@@ -25,8 +32,18 @@ class DishesAdapter(dishes: MutableList<Dishes>) : BaseQuickAdapter<Dishes, Base
         item?.let {
             name?.setText(it.productName)
             price?.setText("${it.productPrices[0].price}元起")
+            if(it.productIcon != null){
+                val bitmapArray = Base64.decode(it.productIcon,Base64.DEFAULT);
+                val bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.size);
+                Glide.with(mContext).load(bitmap).defaultInto(image)
+            }else{
+                Glide.with(mContext).load("").defaultInto(image)
+            }
+
         }
 
     }
+
+
 
 }

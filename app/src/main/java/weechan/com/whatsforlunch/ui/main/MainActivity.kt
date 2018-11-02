@@ -1,7 +1,7 @@
 package weechan.com.whatsforlunch.ui.main
 
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -9,7 +9,6 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import weechan.com.whatsforlunch.R
 import weechan.com.whatsforlunch.net.RetrofitClient
-import weechan.com.whatsforlunch.ui.manage.ManageFragment
 
 class MainActivity : AppCompatActivity(),MainContract.View {
     override fun showToast(msg: String) {
@@ -18,7 +17,7 @@ class MainActivity : AppCompatActivity(),MainContract.View {
 
     override lateinit var presenter: MainContract.Presenter
 
-    private val fragmentManager : FragmentManager = supportFragmentManager
+    private lateinit var adapter : FragmentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,25 +26,40 @@ class MainActivity : AppCompatActivity(),MainContract.View {
 
         presenter = MainContract.Presenter(this)
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.main_fragment_container,MainFragment())
-                .addToBackStack(null)
-                .commit()
+        adapter = FragmentAdapter(supportFragmentManager)
+
+        main_fragment_viewpager.adapter = adapter
+
+        main_fragment_viewpager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(p0: Int) {
+            }
+
+            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+            }
+
+            override fun onPageSelected(page: Int) {
+                with(bottom_nav){
+                    when(page){
+                        0 -> selectedItemId = R.id.home
+                        1 -> selectedItemId = R.id.orders
+                        2 -> selectedItemId = R.id.manage
+                    }
+                }
+            }
+        })
+
 
         bottom_nav.setOnNavigationItemSelectedListener {
             item ->
             when(item.itemId){
                 R.id.home -> run{
-
+                    main_fragment_viewpager.setCurrentItem(0)
                 }
                 R.id.orders -> run{
-
+                    main_fragment_viewpager.setCurrentItem(1)
                 }
-                R.id.setting -> run{
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment_container, ManageFragment())
-                            .addToBackStack(null)
-                            .commit()
+                R.id.manage -> run{
+                    main_fragment_viewpager.setCurrentItem(2)
                 }
             }
             return@setOnNavigationItemSelectedListener true

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clipChildren="false"
     android:orientation="vertical">
 
@@ -21,6 +22,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="21dp"
             android:layout_marginBottom="21dp"
+            tools:srcCompat="@tools:sample/avatars"
             android:src="@drawable/ic_menu_share" />
 
         <LinearLayout
@@ -165,7 +167,7 @@
     </RelativeLayout>
 
 
-    <android.support.constraint.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackground"
@@ -174,15 +176,98 @@
 
 
         <android.support.v7.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="108dp"
+                android:orientation="horizontal">
+
+                <weechan.com.whatsforlunch.widget.ImageText
+                    android:id="@+id/manage_history"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:image="@drawable/ic_menu_share"
+                    app:imageSize="32dp"
+                    app:text="历史订单"
+                    app:textSize="16sp">
+
+                </weechan.com.whatsforlunch.widget.ImageText>
+
+                <weechan.com.whatsforlunch.widget.ImageText
+                    android:id="@+id/manage_menu"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:image="@drawable/ic_menu_share"
+                    app:imageSize="32dp"
+                    app:text="菜单管理"
+                    app:textSize="16sp"></weechan.com.whatsforlunch.widget.ImageText>
+
+                <weechan.com.whatsforlunch.widget.ImageText
+                    android:id="@+id/manage_setting"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:image="@drawable/ic_menu_share"
+                    app:imageSize="32dp"
+                    app:text="门店设置"
+                    app:textSize="16sp"></weechan.com.whatsforlunch.widget.ImageText>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="108dp"
+                android:layout_marginTop="108dp"
+                android:orientation="horizontal">
+
+                <weechan.com.whatsforlunch.widget.ImageText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:image="@drawable/ic_menu_share"
+                    app:imageSize="32dp"
+                    app:text="菜品销量"
+                    app:textSize="16sp">
+
+                </weechan.com.whatsforlunch.widget.ImageText>
+
+                <weechan.com.whatsforlunch.widget.ImageText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:image="@drawable/ic_menu_share"
+                    app:imageSize="32dp"
+                    app:text="营业统计"
+                    app:textSize="16sp" />
+
+                <weechan.com.whatsforlunch.widget.ImageText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:image="@drawable/ic_menu_share"
+                    app:imageSize="32dp"
+                    app:text="帮助中心"
+                    app:textSize="16sp"></weechan.com.whatsforlunch.widget.ImageText>
+
+
+            </LinearLayout>
+
+
+
+        </android.support.v7.widget.CardView>
+    </FrameLayout>
 
 </LinearLayout>

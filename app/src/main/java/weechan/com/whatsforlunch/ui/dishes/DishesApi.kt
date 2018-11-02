@@ -1,6 +1,8 @@
 package weechan.com.whatsforlunch.ui.dishes
 
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 import rx.Observable
 import weechan.com.whatsforlunch.data.BaseResponse
@@ -21,4 +23,7 @@ interface DishesApi {
 
     @GET("/product")
     fun getDishes(@Query("categoryType") categoryType : Int) : Observable<BaseResponse<List<Dishes>>>
+
+    @POST("/category")
+    fun addCategory(@Body category: DishesCategory ) : Observable<BaseResponse<DishesCategory>>
 }
