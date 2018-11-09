@@ -1,6 +1,6 @@
 package weechan.com.common.base
 
-import android.arch.lifecycle.*
+import androidx.lifecycle.*
 
 /**
  *
@@ -58,5 +58,9 @@ abstract class BasePresenter<V:BaseView<IPresenter>>(var view : V?) : IPresenter
 
     fun onResume(){
         // Overwrite it if you need
+    }
+
+    override fun refresh() {
+        //Overwrite it if you need to do sth while refreshing
     }
 }

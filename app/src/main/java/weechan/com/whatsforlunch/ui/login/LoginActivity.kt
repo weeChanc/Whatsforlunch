@@ -2,17 +2,12 @@ package weechan.com.whatsforlunch.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
-import com.mobile.utils.newActorWithDelay
-import com.mobile.utils.onClick
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.experimental.CoroutineStart
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.channels.SendChannel
-import kotlinx.coroutines.experimental.channels.actor
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
+
 import weechan.com.whatsforlunch.R
 import weechan.com.whatsforlunch.ui.main.MainActivity
 import weechan.com.whatsforlunch.ui.register.RegisterActivity

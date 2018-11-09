@@ -1,10 +1,10 @@
 package weechan.com.whatsforlunch.ui.main
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import weechan.com.whatsforlunch.ui.manage.ManageFragment
 import weechan.com.whatsforlunch.ui.orders.OrderFragment
 
@@ -16,11 +16,11 @@ import weechan.com.whatsforlunch.ui.orders.OrderFragment
  *
  */
   
-class FragmentAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class FragmentAdapter(fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(fm) {
 
-    private val fragments = listOf<Fragment>(MainFragment(),OrderFragment(),ManageFragment())
+    private val fragments = listOf<androidx.fragment.app.Fragment>(MainFragment(),OrderFragment(),ManageFragment())
 
-    override fun getItem(p0: Int): Fragment {
+    override fun getItem(p0: Int): androidx.fragment.app.Fragment {
         return fragments.get(p0)
     }
 

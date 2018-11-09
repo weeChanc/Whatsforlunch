@@ -22,6 +22,12 @@
 
         </activity>
         <activity android:name=".ui.login.LoginActivity">
+
+        </activity>
+        <activity android:name=".ui.dishes.DishesActivity" android:theme="@style/AppTheme" />
+        <activity android:name=".ui.register.RegisterActivity" />
+
+        <activity android:name=".Test">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,8 +36,6 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.dishes.DishesActivity" android:theme="@style/AppTheme" />
-        <activity android:name=".ui.register.RegisterActivity" />
     </application>
 
 </manifest>

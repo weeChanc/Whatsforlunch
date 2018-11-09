@@ -1,13 +1,21 @@
 package weechan.com.common.utils
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.Application
+import android.os.Bundle
+
 /**
- *
- * @author 214652773@qq.com
- * @user c
- * @onCreate 2018/10/21 16:47
- *
+ * Created by jimji on 2017/9/15.
  */
+class Utils {
+    companion object {
+        @SuppressLint("StaticFieldLeak")
+        lateinit var app: Application
 
-fun onUiThread( block : ()-> Unit){
-
+        fun init(app: Application) {
+            this.app = app
+            ActivityManager.init()
+        }
+    }
 }

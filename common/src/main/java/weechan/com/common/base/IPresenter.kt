@@ -9,5 +9,5 @@ package weechan.com.common.base
  */
 
 interface IPresenter{
-
+    fun refresh()
 }

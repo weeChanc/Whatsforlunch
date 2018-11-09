@@ -1,6 +1,6 @@
 package weechan.com.common.base
 
-import android.arch.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleOwner
 
 /**
  *

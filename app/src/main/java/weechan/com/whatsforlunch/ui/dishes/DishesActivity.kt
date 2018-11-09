@@ -1,16 +1,11 @@
 package weechan.com.whatsforlunch.ui.dishes
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.view.View
-import com.mobile.utils.dp2px
-import com.mobile.utils.onClick
-import com.mobile.utils.showToast
-import com.mobile.utils.sp2px
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_dishes.*
 import org.jetbrains.anko.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import weechan.com.common.utils.screen.dp2px
 import weechan.com.whatsforlunch.R
 import weechan.com.whatsforlunch.data.Dishes
 import weechan.com.whatsforlunch.data.DishesCategory
@@ -54,13 +49,13 @@ class DishesActivity : AppCompatActivity(), DishesContract.View {
 
 
         dishes_category_list.adapter = categoryAdapter
-        dishes_category_list.layoutManager = LinearLayoutManager(this)
+        dishes_category_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         dishes_list.adapter = dishesAdapter
-        dishes_list.layoutManager = LinearLayoutManager(this)
+        dishes_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
 
         presenter.getDishesCategories()
 
-        categoryAdapter.setOnItemClickListener { adapter, view, position ->
+        categoryAdapter.setOnItemClickListener { _, _, position ->
             if(activedpos == position) return@setOnItemClickListener
             val item = categoryAdapter.getItem(position)
             if (item != null) {

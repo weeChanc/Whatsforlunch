@@ -1,11 +1,11 @@
 package weechan.com.whatsforlunch.net
 
-import com.mobile.utils.showToast
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import weechan.com.common.utils.net.NetStatusMonitor
 import weechan.com.whatsforlunch.App
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -29,7 +29,8 @@ object RetrofitClient {
             .writeTimeout(timeout, TimeUnit.MILLISECONDS)
             .retryOnConnectionFailure(true)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .addNetworkInterceptor(CacheInterceptor())
+            .addInterceptor(CacheInterceptor())
+            .addNetworkInterceptor(CacheNetworkInterceptor())
             .cache(Cache(File(App.app.externalCacheDir, "ok-cache"), 1024 * 1024 * 30L))
             .build()
 
@@ -40,21 +41,17 @@ object RetrofitClient {
             .retryOnConnectionFailure(true)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .addInterceptor(MockInterceptor())
-            .addNetworkInterceptor(CacheInterceptor())
+            .addNetworkInterceptor(CacheNetworkInterceptor())
             .cache(Cache(File(App.app.externalCacheDir, "ok-cache"), 1024 * 1024 * 30L))
             .build()
 
     class MockInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
 
-            showToast(NetStatus.available)
-
             val request = chain.request()
             val builder = request.newBuilder()
             val oldUrl = request.url()
             val requestUrl: String = "/" + oldUrl.pathSegments().joinToString("/")
-
-
 
             val newUrl = HttpUrl.Builder().scheme(oldUrl.scheme())
                     .host("result.eolinker.com")
@@ -65,24 +62,39 @@ object RetrofitClient {
 
     }
 
+    class CacheNetworkInterceptor : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response {
+            //无缓存,进行缓存
+            return chain.proceed(chain.request()).newBuilder()
+                    .removeHeader("Pragma")
+                    //对请求进行最大60秒的缓存
+                    .addHeader("Cache-Control", "max-age=60")
+                    .build();
+        }
+
+    }
+
     class CacheInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
-
             val resp: Response
             val req: Request
-            if (NetStatus.available) {
+            if (NetStatusMonitor.available) {
+                //有网络,检查 10 秒内的缓存
                 req = chain.request().newBuilder()
-                        .cacheControl(CacheControl.Builder().maxAge(2, TimeUnit.DAYS).build())
+                        .cacheControl(CacheControl.Builder().maxAge(10, TimeUnit.SECONDS).build())
                         .build()
             } else {
+                //无网络,检查30天内的缓存
                 req = chain.request().newBuilder()
-                        .cacheControl(CacheControl.Builder().onlyIfCached().build())
+                        .cacheControl(CacheControl.Builder()
+                                .onlyIfCached()
+                                .maxStale(30, TimeUnit.DAYS)
+                                .build())
                         .build()
             }
             resp = chain.proceed(req)
             return resp.newBuilder()
                     .removeHeader("Pragma")
-                    .header("Cache-Control", "public,max-age=${60 * 60 * 24 * 2}")
                     .build()
         }
 
@@ -102,9 +114,9 @@ object RetrofitClient {
             .build()
 
     fun <T> create(clazz: Class<T>): T {
-        if(yes){
+        if (yes) {
             return retrofit.create(clazz)
-        }else{
+        } else {
             return retrofit2.create(clazz)
         }
 
@@ -112,7 +124,7 @@ object RetrofitClient {
 
     var yes = true
 
-    fun switch(){
+    fun switch() {
         yes = !yes
     }
 

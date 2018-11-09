@@ -1,12 +1,15 @@
 package weechan.com.whatsforlunch
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkRequest
-import com.mobile.utils.Utils
-import org.jetbrains.anko.toast
+import androidx.lifecycle.Lifecycle
+import com.squareup.leakcanary.LeakCanary
+import weechan.com.common.base.BaseView
+import weechan.com.common.utils.ActivityManager
+import weechan.com.common.utils.Utils
+import weechan.com.common.utils.net.NetStatusMonitor
+import weechan.com.common.utils.showToast
+import weechan.com.whatsforlunch.config.configApp
+import weechan.com.whatsforlunch.config.configNetwork
 import java.io.File
 
 /**
@@ -28,5 +31,15 @@ class App : Application() {
         app = this
         Utils.init(this)
         File(app.externalCacheDir,"ok-cache").mkdir()
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this)
+        //setup for project
+//        configApp()
+
     }
 }

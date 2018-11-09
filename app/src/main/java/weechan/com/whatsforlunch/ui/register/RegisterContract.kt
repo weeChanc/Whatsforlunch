@@ -1,13 +1,7 @@
 package weechan.com.whatsforlunch.ui.register
 
-import com.mobile.utils.showToast
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import retrofit2.http.Multipart
-import rx.Observable
 import weechan.com.common.base.BasePresenter
 import weechan.com.common.base.BaseView
-import weechan.com.whatsforlunch.data.BaseResponse
 import weechan.com.whatsforlunch.net.RetrofitClient
 import weechan.com.whatsforlunch.utils.Oks
 import weechan.com.whatsforlunch.utils.fetch

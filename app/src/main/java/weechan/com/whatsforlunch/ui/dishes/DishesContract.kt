@@ -3,6 +3,7 @@ package weechan.com.whatsforlunch.ui.dishes
 import android.util.Log
 import weechan.com.common.base.BasePresenter
 import weechan.com.common.base.BaseView
+import weechan.com.common.utils.showToast
 import weechan.com.whatsforlunch.data.Dishes
 import weechan.com.whatsforlunch.data.DishesCategory
 import weechan.com.whatsforlunch.net.RetrofitClient
@@ -51,6 +52,12 @@ interface DishesContract {
                     .fetchEntity{
                         view?.updateCategory(it)
                     }
+        }
+
+        override fun refresh() {
+            Log.e("Presenter","check")
+            showToast("界面更新中!!")
+            this.getDishesCategories()
         }
     }
 }

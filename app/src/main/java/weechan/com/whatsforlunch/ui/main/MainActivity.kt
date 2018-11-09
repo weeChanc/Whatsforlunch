@@ -1,8 +1,8 @@
 package weechan.com.whatsforlunch.ui.main
 
 import android.os.Bundle
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(),MainContract.View {
 
         main_fragment_viewpager.adapter = adapter
 
-        main_fragment_viewpager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+        main_fragment_viewpager.addOnPageChangeListener(object: androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
             }
 

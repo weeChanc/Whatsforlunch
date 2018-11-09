@@ -4,14 +4,12 @@ import android.app.ProgressDialog
 import android.os.Bundle
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.mobile.utils.AlbumPicker
-import com.mobile.utils.AlbumPickerActivity
-import com.mobile.utils.showToast
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.fragment_manage.*
 import org.jetbrains.anko.indeterminateProgressDialog
-import org.jetbrains.anko.progressDialog
 import org.jetbrains.anko.selector
+import weechan.com.common.utils.album.AlbumPicker
+import weechan.com.common.utils.album.AlbumPickerActivity
+import weechan.com.common.utils.showToast
 import weechan.com.common.utils.Maps
 import weechan.com.whatsforlunch.R
 import java.io.File

@@ -1,11 +1,10 @@
-package weechan.com.whatsforlunch.net
+package weechan.com.common.utils.net
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkRequest
-import com.mobile.utils.showToast
-import weechan.com.whatsforlunch.App
+import weechan.com.common.utils.Utils
 import kotlin.properties.Delegates
 
 
@@ -17,7 +16,13 @@ import kotlin.properties.Delegates
  *
  */
 
-object NetStatus{
+object NetStatusMonitor {
+
+    interface Listener{
+        fun onLost()
+        fun onAvailable()
+        fun onNetStateChange(oldState: Int, newState: Int)
+    }
 
     val WIFI = 1;
     val MOBILE = 2;
@@ -25,19 +30,24 @@ object NetStatus{
     val UNKNOW = 0
 
     var available = false
-    var netState : Int by Delegates.observable(UNKNOW){
-        property, oldValue, newValue ->
-        onNetStateChange?.invoke(oldValue,newValue)
+    var netState: Int by Delegates.observable(UNKNOW) { property, oldValue, newValue ->
+        listener?.onNetStateChange(oldValue, newValue)
+    }
+//
+//    var onAvailable: (() -> Unit)? = null
+//    var onLost: (() -> Unit)? = null
+//    var onNetStateChange: ((oldState: Int, newState: Int) -> Unit)? = null
+
+    private var listener : Listener? = null
+
+    fun setNetStatusListener(listener: Listener){
+        this.listener = listener
     }
 
-    var onAvailable: (()->Unit)? = null
-    var onLost: (()->Unit)? = null
-    var onNetStateChange: ((oldState:Int,newState:Int)->Unit)? = null
-
     init {
-        val cm =  App.app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val cm = Utils.app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        fun setType(){
+        fun setType() {
             val activeNetwork = cm.activeNetworkInfo
             val isMobile = activeNetwork.type == ConnectivityManager.TYPE_MOBILE
             val isWifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isAvailable
@@ -51,30 +61,19 @@ object NetStatus{
                 netState = UNKNOW
         }
 
-        cm.requestNetwork( NetworkRequest.Builder().build(),  object : ConnectivityManager.NetworkCallback() {
+        cm.requestNetwork(NetworkRequest.Builder().build(), object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network?) {
                 available = true
                 setType()
-                onAvailable?.invoke()
+                listener?.onAvailable()
             }
 
             override fun onLost(network: Network?) {
                 available = false
-                onLost?.invoke()
+                listener?.onLost()
             }
         })
-    }
 
-    fun normalSetup(){
-        onLost = {
-            showToast("网络出事了")
-        }
-
-        onNetStateChange = {
-            oldState, newState ->
-            if(newState == MOBILE){
-                showToast("注意,正在使用2G/3G/4G网络")
-            }
-        }
     }
 }
+
