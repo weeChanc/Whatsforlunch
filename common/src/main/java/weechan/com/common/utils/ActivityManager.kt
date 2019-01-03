@@ -32,7 +32,6 @@ object ActivityManager {
             }
 
             override fun onActivitySaveInstanceState(p0: Activity?, p1: Bundle?) {
-
             }
 
             override fun onActivityStopped(p0: Activity?) {

@@ -33,10 +33,6 @@ object NetStatusMonitor {
     var netState: Int by Delegates.observable(UNKNOW) { property, oldValue, newValue ->
         listener?.onNetStateChange(oldValue, newValue)
     }
-//
-//    var onAvailable: (() -> Unit)? = null
-//    var onLost: (() -> Unit)? = null
-//    var onNetStateChange: ((oldState: Int, newState: Int) -> Unit)? = null
 
     private var listener : Listener? = null
 

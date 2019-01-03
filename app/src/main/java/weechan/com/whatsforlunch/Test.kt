@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.test.*
+import okhttp3.Call
+import okhttp3.OkHttpClient
 import rx.Observable
 import weechan.com.common.utils.loading.Loading
 import weechan.com.common.utils.loading.LoadingBuilder
@@ -52,14 +54,14 @@ class Test : AppCompatActivity() {
         error.setOnClickListener {
             loading.error()
         }
-
+\
 
 //        butto2n.setOnClickListener {
 //            startActivity(Intent(this, Test::class.java))
 //        }
 //
 //
-
+        Call
 //
 //        button.setOnClickListener {
 //            //            Loading.defaultLoad(recycler)
