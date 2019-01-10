@@ -1,21 +1,17 @@
 package weechan.com.whatsforlunch.ui.main
 
 import android.os.Bundle
-import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import weechan.com.whatsforlunch.R
-import weechan.com.whatsforlunch.net.RetrofitClient
+import weechan.com.whatsforlunch.data.Order
 
-class MainActivity : AppCompatActivity(),MainContract.View {
-    override fun showToast(msg: String) {
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
-    }
+class MainActivity : AppCompatActivity() {
 
-    override lateinit var presenter: MainContract.Presenter
+
 
     private lateinit var adapter : FragmentAdapter
 
@@ -24,12 +20,13 @@ class MainActivity : AppCompatActivity(),MainContract.View {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        presenter = MainContract.Presenter(this)
 
         adapter = FragmentAdapter(supportFragmentManager)
 
         main_fragment_viewpager.adapter = adapter
 
+  
+//        main_fragment_viewpager.
         main_fragment_viewpager.addOnPageChangeListener(object: androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
             }
@@ -78,8 +75,7 @@ class MainActivity : AppCompatActivity(),MainContract.View {
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.action_settings -> run{
-                showToast("swithc")
-                RetrofitClient.switch()
+//                RetrofitClient.switch()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

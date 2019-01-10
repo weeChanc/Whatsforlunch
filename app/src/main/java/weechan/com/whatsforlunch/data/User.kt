@@ -8,4 +8,5 @@ package weechan.com.whatsforlunch.data
  *
  */
   
-data class User(val username: String, val password: String, val name: String, val phone: String)
+data class User(val username: String,val email: String,
+                val phone: String, val balance: Double,val token : String)

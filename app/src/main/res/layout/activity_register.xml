@@ -91,6 +91,57 @@
 
 
             <TextView
+                android:id="@+id/pass_prefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="密码"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
+
+            <EditText
+                android:id="@+id/pass"
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@null"
+                android:hint="请输入您的密码"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                app:layout_constraintBaseline_toBaselineOf="@+id/pass_prefix"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/barrier" />
+
+
+            <TextView
+                android:id="@+id/idcard_prefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="身份证"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pass" />
+
+            <EditText
+                android:id="@+id/idcard"
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@null"
+                android:hint="请输入您的身份证"
+                android:inputType="text"
+                android:maxLines="1"
+                app:layout_constraintBaseline_toBaselineOf="@+id/idcard_prefix"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/barrier" />
+
+            <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="59dp"
@@ -100,7 +151,7 @@
                 android:paddingLeft="8dp"
                 android:text="门店信息"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name_prefix" />
+                app:layout_constraintTop_toBottomOf="@+id/idcard" />
 
             <TextView
 
@@ -108,21 +159,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="所在城市"
+                android:text="店铺位置"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/city"
+                app:layout_constraintBottom_toBottomOf="@+id/position"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/city" />
+                app:layout_constraintTop_toTopOf="@+id/position" />
 
             <EditText
-                android:id="@+id/city"
+                android:id="@+id/position"
                 android:layout_width="0dp"
                 android:layout_height="46dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@null"
-                android:editable="false"
-                android:hint="请选择所在城市"
+                android:hint="请填写店铺的地址"
                 android:inputType="none"
                 android:maxLines="1"
                 android:textAlignment="viewStart"
@@ -155,29 +205,35 @@
                 android:inputType="text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/barrier"
-                app:layout_constraintTop_toBottomOf="@+id/city" />
+                app:layout_constraintTop_toBottomOf="@+id/position" />
+
+
+
+            <!--<ImageView-->
+                <!--android:id="@+id/image_yyzz"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="160dp"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:layout_marginEnd="8dp"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintHorizontal_bias="0.482"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--android:src="@drawable/yyzz"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/image_store" />-->
 
             <ImageView
-                android:id="@+id/image_yyzz"
-                android:layout_width="0dp"
-                android:layout_height="160dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.482"
-                app:layout_constraintStart_toStartOf="parent"
-                android:src="@drawable/yyzz"
-                app:layout_constraintTop_toBottomOf="@+id/image_sfz" />
-
-            <ImageView
-                android:id="@+id/image_sfz"
+                android:id="@+id/image_store"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:src="@drawable/sfz"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/upload"
+                android:scaleType="center"
+                android:background="@drawable/shape_dot_border"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/register_shopname" />
@@ -193,7 +249,7 @@
                 android:textColor="#dd4f43"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_yyzz" />
+                app:layout_constraintTop_toBottomOf="@+id/image_store" />
 
             <Button
                 android:id="@+id/submit"

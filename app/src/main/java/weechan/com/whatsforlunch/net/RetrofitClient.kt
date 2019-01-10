@@ -1,5 +1,6 @@
 package weechan.com.whatsforlunch.net
 
+import android.util.Log
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,17 +19,26 @@ import java.util.concurrent.TimeUnit
  *
  */
 
-val baseURL = "http://result.eolinker.com/"
+val baseURL = "http://192.168.43.133:3000"
 val timeout = 10000L
 
-object RetrofitClient {
 
-    private val okhttpClient = OkHttpClient.Builder()
+object RetrofitClient {
+    public var token: String? = null
+    private var okhttpClient = OkHttpClient.Builder()
             .connectTimeout(timeout, TimeUnit.MILLISECONDS)
             .readTimeout(timeout, TimeUnit.MILLISECONDS)
             .writeTimeout(timeout, TimeUnit.MILLISECONDS)
             .retryOnConnectionFailure(true)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor {
+                if (token != null) {
+                    val req = it.request();
+                    return@addInterceptor it.proceed(req.newBuilder().addHeader("Authorization", token).build())
+                } else {
+                    return@addInterceptor it.proceed(it.request())
+                }
+            }
             .addInterceptor(CacheInterceptor())
             .addNetworkInterceptor(CacheNetworkInterceptor())
             .cache(Cache(File(App.app.externalCacheDir, "ok-cache"), 1024 * 1024 * 30L))
@@ -114,11 +124,12 @@ object RetrofitClient {
             .build()
 
     fun <T> create(clazz: Class<T>): T {
-        if (yes) {
-            return retrofit.create(clazz)
-        } else {
-            return retrofit2.create(clazz)
-        }
+        return retrofit2.create(clazz)
+//        if (yes) {
+//            return retrofit.create(clazz)
+//        } else {
+//            return retrofit2.create(clazz)
+//        }
 
     }
 

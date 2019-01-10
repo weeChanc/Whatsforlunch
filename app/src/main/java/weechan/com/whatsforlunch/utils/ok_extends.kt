@@ -21,5 +21,14 @@ class Oks{
             val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
             return MultipartBody.Part.createFormData(key,file.name,requestBody)
         }
+
+        fun buildForm() = MultipartBody.Builder().setType(MultipartBody.FORM)
+
+//        MultipartBody.Builder().setType(MultipartBody.FORM)
+//        .addFormDataPart("name", dish.productName)
+//        .addFormDataPart("description", dish.productDescription)
+//        .addFormDataPart("icon", File(dish.productIcon).name,
+//        RequestBody.create(MediaType.parse("image/*"), File(dish.productIcon)))
+//        .addFormDataPart("category_id", id.toString())
     }
 }

@@ -2,11 +2,11 @@ package weechan.com.whatsforlunch.ui.register
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Base64
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.indeterminateProgressDialog
-import org.jetbrains.anko.selector
 import weechan.com.common.utils.album.AlbumPicker
 import weechan.com.common.utils.album.AlbumPickerActivity
 import weechan.com.common.utils.showToast
@@ -15,13 +15,15 @@ import weechan.com.whatsforlunch.R
 import java.io.File
 
 class RegisterActivity : AlbumPickerActivity(), RegisterContract.View {
+    override fun registerSuccess() {
+        finish();
+    }
 
     override lateinit var presenter: RegisterContract.Presenter
 
     private var dialog: ProgressDialog? = null
 
-    private var yyzz: String? = null
-    private var sfz: String? = null
+    private var shop_image: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,43 +50,29 @@ class RegisterActivity : AlbumPickerActivity(), RegisterContract.View {
     }
 
     private fun setupListener() {
-        city.setOnClickListener {
-            val cityList = presenter.getCityList()
-            selector("请选择城市", cityList) { _, position ->
-                city.setText(cityList.get(position))
-            }
-        }
 
-        image_sfz.setOnClickListener {
+        image_store.setOnClickListener {
             AlbumPicker.with(this).selectedPicAndHandle { path ->
                 if (path != null) {
-                    sfz = path
+                    shop_image = path
                     Glide.with(this@RegisterActivity).load(path).into(it as ImageView)
                 }
             }
         }
 
-        image_yyzz.setOnClickListener {
-            AlbumPicker.with(this).selectedPicAndHandle { path ->
-                if (path != null) {
-                    showToast("load")
-                    yyzz = path
-                    Glide.with(this@RegisterActivity).load(path).into(it as ImageView)
-                }
-            }
-        }
 
         submit.setOnClickListener {
-            if (yyzz == null || sfz == null) {
+            if (shop_image == null) {
                 showToast("请填写完整信息")
                 return@setOnClickListener
             }
-            presenter.register(File(yyzz), File(sfz), Maps.buildMap {
-                "sellerName" - name.text.toString()
-                "storeName" - register_shopname.text.toString()
+            presenter.register(File(shop_image), Maps.buildMap {
+                "sellername" - name.text.toString()
+                "store_name" - register_shopname.text.toString()
                 "phone" - phone.text.toString()
-                "idcardNumber" - "441900199239111438"
-                "position" - "广东工业大学南塘村"
+                "position" - position.text.toString()
+                "password" - pass.text.toString()
+                "idcard" - idcard.text.toString()
             })
         }
     }

@@ -81,12 +81,14 @@
                         android:text="今日营业额" />
 
                     <TextView
+                        android:id="@+id/money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="421元"
                         android:textColor="@color/colorBlue" />
 
                     <TextView
+                        android:id="@+id/money_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="增长12元"
@@ -114,12 +116,14 @@
                         android:text="今日订单" />
 
                     <TextView
+                        android:id="@+id/order"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="120单"
                         android:textColor="@color/colorGreen" />
 
                     <TextView
+                        android:id="@+id/order_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="增长24单"
@@ -140,23 +144,6 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal|center_vertical"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="可用余额" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="921元"
-                        android:textColor="@color/colorYellow" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="设置"
-                        android:textColor="@color/colorYellow" />
 
                 </LinearLayout>
 

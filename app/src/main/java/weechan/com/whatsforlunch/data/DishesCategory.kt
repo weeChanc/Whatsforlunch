@@ -7,5 +7,8 @@ package weechan.com.whatsforlunch.data
  * @create 2018/10/26 11:07
  *
  */
-  
-data class DishesCategory(val categoryName : String, val categoryType : Int, var isActived : Boolean)
+
+data class DishesCategory(val category_id: Int,
+                          val category_name: String,
+                          val categoryType: Int? = null,
+                          var isActived: Boolean = false)

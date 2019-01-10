@@ -43,15 +43,19 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
 
     implementation "org.jetbrains.anko:anko-commons:0.10.7"
-    implementation "org.jetbrains.anko:anko-sdk25:0.10.7" // sdk15, sdk19, sdk21, sdk23 are also available
+    implementation "org.jetbrains.anko:anko-sdk25:0.10.7"
+    // sdk15, sdk19, sdk21, sdk23 are also available
     implementation "org.jetbrains.anko:anko-appcompat-v7:0.10.7"
     implementation "org.jetbrains.anko:anko-sdk25-coroutines:0.10.7"
     implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:0.10.7"
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.2'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.2'
+    implementation 'com.github.crazycodeboy:TakePhoto:v4.1.0'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.2'
+//    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.2'
     // Optional, if you use support library fragments:
-    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.2'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.2'
 //    implementation 'com.github.littlejigege:suger:v0.0.8.7'
+    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
 }

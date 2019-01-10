@@ -59,7 +59,7 @@ fun <T> Observable<T>.fetch(block: (param: T?) -> Unit) {
     )
 }
 
-fun <T> Observable<BaseResponse<T>>.fetchEntity(block: (param: T) -> Unit) {
+fun <T> Observable<BaseResponse<T>>.fetchEntity(block: (param: T?) -> Unit) {
     subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
             .flatMap { resp ->
                 when (resp.code) {
@@ -68,8 +68,8 @@ fun <T> Observable<BaseResponse<T>>.fetchEntity(block: (param: T) -> Unit) {
                 }
             }
             .subscribe(
-                    object : Observer<T> {
-                        override fun onNext(t: T) {
+                    object : Observer<T?> {
+                        override fun onNext(t: T?) {
                             block(t)
                         }
 

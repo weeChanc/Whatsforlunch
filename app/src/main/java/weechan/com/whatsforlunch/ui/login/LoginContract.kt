@@ -1,8 +1,10 @@
 package weechan.com.whatsforlunch.ui.login
 
+import android.util.Log
 import weechan.com.common.base.BasePresenter
 import weechan.com.common.base.BaseView
 import weechan.com.common.utils.Maps
+import weechan.com.common.utils.showToast
 import weechan.com.whatsforlunch.net.RetrofitClient
 import weechan.com.whatsforlunch.utils.fetch
 import weechan.com.whatsforlunch.utils.fetchMain
@@ -28,11 +30,20 @@ interface LoginContract {
         fun login(account: String, password: String) {
             view?.startLogin()
             mApi.login(Maps.buildMap<String> {
-                "account" - account
+                "type" - "1"
+                "phone" - account
                 "password" - password })
                     .doOnError {}
                     .fetch {
-                        view?.endLogin()
+                        if(it?.code != 200) {
+                            showToast("用户名或密码错误")
+                        }else{
+                            Log.e("[LOGIN SUCCESS]",it.data.toString())
+//                            RetrofitClient.addToken(it.data.token)
+                            RetrofitClient.token = it.data.token
+                            view?.endLogin()
+                        }
+
                     }
         }
     }

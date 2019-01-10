@@ -3,6 +3,8 @@ package weechan.com.whatsforlunch.ui.register;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -20,10 +22,7 @@ import weechan.com.whatsforlunch.data.User;
 interface RegisterApi {
 
 
-    @POST("seller/register")
-    @Multipart
-    Observable<BaseResponse<User>> register(@Part MultipartBody.Part businessLincence ,
-                                            @Part MultipartBody.Part idcard,
-                                            @PartMap Map<String, String> params);
+    @POST("seller")
+    Observable<BaseResponse<Object>> register(@Body RequestBody body);
 
 }

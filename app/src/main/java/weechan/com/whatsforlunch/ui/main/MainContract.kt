@@ -5,22 +5,36 @@ import android.os.Looper
 import weechan.com.common.base.BasePresenter
 import weechan.com.common.base.BaseView
 import weechan.com.whatsforlunch.App
+import weechan.com.whatsforlunch.data.Order
+import weechan.com.whatsforlunch.net.RetrofitClient
+import weechan.com.whatsforlunch.utils.fetch
+import weechan.com.whatsforlunch.utils.fetchEntity
 import kotlin.concurrent.thread
 
 interface MainContract {
     interface View : BaseView<Presenter>{
-        fun showToast(msg: String)
+        fun showTodoOrders(msg: List<Order>)
+        fun showDetails(d : List<Order>)
     }
 
     class Presenter(view : View?): BasePresenter<View>(view) {
 
-        fun costTimeOperation(){
-            view?.showToast("开始")
-            thread {
-                Thread.sleep(10000)
-                Handler(Looper.getMainLooper()).post{
-                    view?.showToast("NICE JOB ")
-                }
+        private val mApi = RetrofitClient.create(MainApi::class.java)
+        fun getTodoOrder(){
+            mApi.todoOrder.fetchEntity {
+                view?.showTodoOrders(it!!)
+            }
+        }
+
+        fun getOrderDetails(id : String){
+            mApi.getOrderDetails(id).fetchEntity {
+                view?.showDetails(it!!)
+            }
+        }
+
+        fun finsihOrder(id : String){
+            mApi.finishOrder(id).fetch {
+
             }
         }
 

@@ -7,15 +7,15 @@
 
     <ImageView
         android:id="@+id/dishes_image"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
-        tool:src="@tools:sample/avatars"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tool:src="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/dishes_name"
@@ -23,8 +23,26 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="猴猴次的叉烧包"
+
         app:layout_constraintStart_toEndOf="@+id/dishes_image"
         app:layout_constraintTop_toTopOf="@+id/dishes_image" />
+
+    <TextView
+        android:id="@+id/dishes_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="描述"
+        app:layout_constraintBottom_toTopOf="@+id/dishes_price"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/dishes_image"
+        app:layout_constraintTop_toBottomOf="@+id/dishes_name"
+        app:layout_constraintVertical_bias="0.684" />
 
     <TextView
         android:id="@+id/dishes_price"
@@ -35,15 +53,18 @@
         android:text="3元一个10元3个"
         app:layout_constraintBottom_toBottomOf="@+id/dishes_image"
         app:layout_constraintStart_toEndOf="@+id/dishes_image"
-        app:layout_constraintTop_toBottomOf="@+id/dishes_name" />
+        app:layout_constraintTop_toBottomOf="@+id/dishes_name"
+        app:layout_constraintVertical_bias="0.833" />
 
     <Button
+        android:id="@+id/button"
         android:layout_width="54dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:text="编辑"
         app:layout_constraintBottom_toBottomOf="@+id/dishes_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dishes_image" />
+        app:layout_constraintTop_toTopOf="@+id/dishes_image"
+        app:layout_constraintVertical_bias="0.444" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

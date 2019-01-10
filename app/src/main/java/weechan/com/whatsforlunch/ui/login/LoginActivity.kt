@@ -22,6 +22,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     override fun endLogin() {
         progressBar.visibility = View.GONE
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +49,6 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         login.setOnClickListener {
             presenter.login(account.editableText.toString(), password.editableText.toString())
 
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
         }
 
     }

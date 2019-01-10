@@ -6,9 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.orders.OrderFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/order_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="订单页面哦"/>
+        android:layout_height="match_parent">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

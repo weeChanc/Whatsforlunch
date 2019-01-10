@@ -2,6 +2,7 @@ package weechan.com.whatsforlunch.ui.dishes
 
 import android.graphics.Color
 import android.widget.TextView
+import com.chad.library.adapter.base.BaseItemDraggableAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import weechan.com.whatsforlunch.R
@@ -16,10 +17,10 @@ import weechan.com.whatsforlunch.data.DishesCategory
  */
   
 class DishesCategoryAdapter(data : MutableList<DishesCategory>) :
-        BaseQuickAdapter<DishesCategory, BaseViewHolder>(R.layout.item_dishes_category,data) {
+        BaseItemDraggableAdapter<DishesCategory, BaseViewHolder>(R.layout.item_dishes_category,data) {
     override fun convert(helper: BaseViewHolder, item: DishesCategory) {
         val categoryName = helper.getView<TextView>(R.id.dishes_category_name)
-        categoryName.text = item.categoryName
+        categoryName.text = item.category_name
         if(item.isActived){
             categoryName.setTextColor(Color.rgb(234, 32, 0))
         }else{
